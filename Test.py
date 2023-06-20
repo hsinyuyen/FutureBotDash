@@ -51,6 +51,7 @@ def make_fig(attribute):
 
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server=app.server
 # Flask-Login user loader callback
 app.layout = html.Div([
   dcc.Location(id='url', refresh=False),
