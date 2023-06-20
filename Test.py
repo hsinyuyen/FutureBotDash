@@ -17,7 +17,7 @@ from flask import Flask, request, url_for, redirect
 import pygsheets
 
 
-gc = pygsheets.authorize(service_file='C:/Users/User/Downloads/future-bot1-114f3146bb57.json')
+gc = pygsheets.authorize(service_file='future-bot1-114f3146bb57.json')
 sht = gc.open_by_url(
 'https://docs.google.com/spreadsheets/d/1m0vDyHCdCSAubRcyD9c1i1fE50AYb0YH4UFtM75toSQ/edit?usp=sharing'
 )
