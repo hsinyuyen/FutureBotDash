@@ -342,7 +342,7 @@ def update_graph_long_ema_2trend(n):
     time= deque(maxlen=1000)
     signal_ma= deque(maxlen=1000)
     long_ema_2trend= deque(maxlen=1000)
-
+    time.extend(df.index)
     signal_ma.extend(df.signal_ma.values)
     long_ema_2trend.extend(df.long_ema_2trend.values)
 
