@@ -17,7 +17,7 @@ from flask import Flask, request, url_for, redirect
 import pygsheets
 
 
-gc = pygsheets.authorize(service_file='future-bot1-114f3146bb57.json')
+gc = pygsheets.authorize(service_file='C:/Users/User/FuturesBotDash/future-bot1-114f3146bb57.json')
 sht = gc.open_by_url(
 'https://docs.google.com/spreadsheets/d/1m0vDyHCdCSAubRcyD9c1i1fE50AYb0YH4UFtM75toSQ/edit?usp=sharing'
 )
@@ -338,12 +338,32 @@ def update_graph_short_ema(n):
 @app.callback(Output('live-long_ema_2trend', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_long_ema_2trend(n):
-    data, time, long_ema_2trend=make_fig("long_ema_2trend")
-    return {'data': [data],'layout' : go.Layout(xaxis=dict(range=[min(time),max(time)],tickformat=".0f"),
-                                                yaxis=dict(tickformat=".0f"),
-                                                title='long_ema_2trend',
+    df = pd.DataFrame(wks.get_all_records())
+    time= deque(maxlen=1000)
+    signal_ma= deque(maxlen=1000)
+    long_ema_2trend= deque(maxlen=1000)
+
+    signal_ma.extend(df.signal_ma.values)
+    long_ema_2trend.extend(df.long_ema_2trend.values)
+
+    data0 = go.Scatter(
+            x=list(time),
+            y=list(signal_ma),
+            name='signal_ma',
+            mode= 'lines'
+    )
+    data1 = go.Scatter(
+            x=list(time),
+            y=list(long_ema_2trend),
+            name='long_ema_2trend',
+            mode= 'lines'
+    )
+    return {'data': [data0, data1],
+            'layout' : go.Layout(xaxis=dict(range=[min(df.index),max(df.index)]),
+                                  yaxis=dict( tickformat=".0f"),
                                                 width=640
-                                                )}
+                                  )}
+    
 
 
 @app.callback(Output('live-preMove', 'figure'),
