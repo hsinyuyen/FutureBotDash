@@ -340,16 +340,16 @@ def update_graph_short_ema(n):
 def update_graph_long_ema_2trend(n):
     df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
-    signal_ma= deque(maxlen=1000)
+    signal= deque(maxlen=1000)
     long_ema_2trend= deque(maxlen=1000)
     time.extend(df.index)
-    signal_ma.extend(df.signal_ma.values)
+    signal.extend(df.signal.values)
     long_ema_2trend.extend(df.long_ema_2trend.values)
 
     data0 = go.Scatter(
             x=list(time),
-            y=list(signal_ma),
-            name='signal_ma',
+            y=list(signal),
+            name='signal',
             mode= 'lines'
     )
     data1 = go.Scatter(
