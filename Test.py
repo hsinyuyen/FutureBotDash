@@ -355,7 +355,7 @@ def update_graph_long_ema_2trend(n):
     data1 = go.Scatter(
             x=list(time),
             y=list(trend),
-            name='long_ema_2trend',
+            name='trend',
             mode= 'lines'
     )
     return {'data': [data0, data1],
