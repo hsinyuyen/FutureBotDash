@@ -17,7 +17,7 @@ from flask import Flask, request, url_for, redirect
 import pygsheets
 
 
-gc = pygsheets.authorize(service_file='future-bot1-114f3146bb57.json')
+gc = pygsheets.authorize(service_file='C:/Users/User/FuturesBotDash/future-bot1-114f3146bb57.json')
 sht = gc.open_by_url(
 'https://docs.google.com/spreadsheets/d/1m0vDyHCdCSAubRcyD9c1i1fE50AYb0YH4UFtM75toSQ/edit?usp=sharing'
 )
@@ -28,10 +28,10 @@ wks = sht[0]
 #讀取成 df
 
 global df
-df = pd.DataFrame(wks.get_all_records())
+df = pd.DataFrame(wks.get_all_records())[-200:]
 
 def make_fig(attribute):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     attribute_name= deque(maxlen=1000)
     
@@ -191,7 +191,7 @@ next_page = html.Div(
 @app.callback(Output('live-micro_Price', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_micro_Price(n):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     micro_Price= deque(maxlen=1000)
     limitAskPrice= deque(maxlen=1000)
@@ -237,7 +237,7 @@ def update_graph_micro_Price(n):
 @app.callback(Output('live-short_ema', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_short_ema(n):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     signal_ma= deque(maxlen=1000)
     short_ema= deque(maxlen=1000)
@@ -287,7 +287,7 @@ def update_graph_short_ema(n):
 @app.callback(Output('live-signal_std', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_short_ema(n):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     signal_std= deque(maxlen=1000)
     short_ema_std= deque(maxlen=1000)
@@ -338,7 +338,7 @@ def update_graph_short_ema(n):
 @app.callback(Output('live-long_ema_2trend', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_long_ema_2trend(n):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     signal_ma= deque(maxlen=1000)
     long_ema_2trend= deque(maxlen=1000)
@@ -369,7 +369,7 @@ def update_graph_long_ema_2trend(n):
 @app.callback(Output('live-preMove', 'figure'),
               [Input('interval-component', 'n_intervals')])
 def update_graph_preMove(n):
-    df = pd.DataFrame(wks.get_all_records())
+    df = pd.DataFrame(wks.get_all_records())[-200:]
     time= deque(maxlen=1000)
     preMove= deque(maxlen=1000)
     preMove2= deque(maxlen=1000)
